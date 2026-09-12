@@ -1,0 +1,249 @@
+%% beamerthemePadova.sty
+%% Tema non ufficiale per l'Universita' degli Studi di Padova
+%% Colore istituzionale: Pantone 1807 (#9B0014)
+%% Richiede compilazione con LuaLaTeX o XeLaTeX (usa fontspec)
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemePadova}[2026/09/10 v1.0 Padova beamer theme]
+
+\RequirePackage{tikz}
+\usetikzlibrary{calc,positioning}
+\RequirePackage{xcolor}
+\RequirePackage{fontspec}
+
+% ------------------------------------------------------------------
+% Fonts
+% ------------------------------------------------------------------
+\setmainfont{Carlito}
+\setsansfont{Carlito}
+\setmonofont{DejaVu Sans Mono}[Scale=0.88]
+
+% ------------------------------------------------------------------
+% Colours -- Universita' degli Studi di Padova, Pantone 1807
+% ------------------------------------------------------------------
+\definecolor{padovared}{HTML}{9B0014}
+\definecolor{padovareddark}{HTML}{5C000C}
+\definecolor{padovaredlight}{HTML}{F4E1E3}
+\definecolor{padovaredpale}{HTML}{FBF3F3}
+\definecolor{padovapetrol}{HTML}{1B5E60}
+\definecolor{padovapetroldark}{HTML}{0F3D3E}
+\definecolor{padovapetrollight}{HTML}{DCEFEE}
+\definecolor{padovaink}{HTML}{2B2A28}
+\definecolor{padovagray}{HTML}{6E6B67}
+\definecolor{padovagraylight}{HTML}{DAD6D0}
+\definecolor{padovabg}{HTML}{FDFCFA}
+\definecolor{padovagold}{HTML}{B08D3E}
+
+\setbeamercolor{normal text}{fg=padovaink,bg=padovabg}
+\setbeamercolor{background canvas}{bg=padovabg}
+\setbeamercolor{structure}{fg=padovared}
+\setbeamercolor{alerted text}{fg=padovared}
+\setbeamercolor{example text}{fg=padovapetrol}
+
+% ------------------------------------------------------------------
+% Base inner/outer theme to inherit sane defaults, then override
+% ------------------------------------------------------------------
+\useinnertheme{default}
+\useoutertheme{infolines}
+\usefonttheme{professionalfonts}
+\setbeamertemplate{navigation symbols}{}
+\beamertemplatenavigationsymbolsempty
+
+% ------------------------------------------------------------------
+% Fonts sizes/weights
+% ------------------------------------------------------------------
+\setbeamerfont{title}{size=\Large,series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize,series=\mdseries,shape=\itshape}
+\setbeamerfont{author}{size=\normalsize,series=\bfseries}
+\setbeamerfont{institute}{size=\scriptsize,series=\mdseries}
+\setbeamerfont{date}{size=\scriptsize,series=\mdseries}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\scriptsize,series=\mdseries}
+\setbeamerfont{footline}{size=\tiny}
+\setbeamerfont{section in toc}{size=\normalsize,series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamerfont{block title alerted}{size=\normalsize,series=\bfseries}
+\setbeamerfont{block title example}{size=\normalsize,series=\bfseries}
+\setbeamerfont{caption}{size=\scriptsize}
+
+% ------------------------------------------------------------------
+% Custom macro for "relatore" (advisor) shown on title page
+% ------------------------------------------------------------------
+\newcommand{\relatore}[1]{\def\padova@relatore{#1}}
+\newcommand{\laureando}[1]{\def\padova@laureando{#1}}
+\newcommand{\dipartimento}[1]{\def\padova@dipartimento{#1}}
+\newcommand{\corsolaurea}[1]{\def\padova@corsolaurea{#1}}
+\def\padova@relatore{}
+\def\padova@laureando{}
+\def\padova@dipartimento{Dipartimento di Matematica ``Tullio Levi-Civita''}
+\def\padova@corsolaurea{Corso di Laurea in Informatica}
+
+\newcommand{\padovalogowhite}[1]{\def\padova@logowhite{#1}}
+\newcommand{\padovalogored}[1]{\def\padova@logored{#1}}
+\def\padova@logowhite{}
+\def\padova@logored{}
+
+% ------------------------------------------------------------------
+% Title page
+% ------------------------------------------------------------------
+\defbeamertemplate*{title page}{Padova}
+{
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[padovared] (current page.south west) rectangle
+      ($(current page.south west)+(0.18\paperwidth,\paperheight)$);
+    \draw[padovagold,line width=0.8pt] ($(current page.south west)+(0.18\paperwidth,0)$) --
+      ($(current page.south west)+(0.18\paperwidth,\paperheight)$);
+    \ifx\padova@logowhite\@empty\else
+      \node[anchor=north] at ($(current page.north west)+(0.75*0.12\paperwidth,-0.32\paperheight)$)
+        {\includegraphics[width=0.17\paperwidth]{\padova@logowhite}};
+    \fi
+  \end{tikzpicture}
+  \hspace{0.16\paperwidth}%
+  \begin{minipage}{0.78\paperwidth}
+    \vspace{0.3cm}
+    {\scriptsize\scshape\color{padovagray} Universit\`a degli Studi di Padova\\[1pt]
+     \padova@dipartimento\\[1pt]
+     \padova@corsolaurea}\\[0.3cm]
+    {\color{padovared}\rule{1.6cm}{1.6pt}}\,{\color{padovagold}\rule{0.5cm}{1.6pt}}\\[0.28cm]
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+    \vspace{0.18cm}
+    \ifx\insertsubtitle\@empty\else
+      {\usebeamerfont{subtitle}\color{padovared}\insertsubtitle\par}
+    \fi
+    \vspace{0.5cm}
+    {\usebeamerfont{author}\color{padovaink}\insertauthor\par}
+    \ifx\padova@relatore\@empty\else
+      {\scriptsize\color{padovagray} Relatore: \padova@relatore\par}
+    \fi
+    \vspace{0.3cm}
+    {\usebeamerfont{date}\color{padovagray}\insertdate\par}
+    \vspace{0.2cm}
+  \end{minipage}
+  \vspace{0.4cm}
+}
+
+% ------------------------------------------------------------------
+% Frame title
+% ------------------------------------------------------------------
+\setbeamertemplate{frametitle}{
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.15cm,dp=0.32cm,leftskip=0.5cm,rightskip=0.5cm]{frametitle}
+    {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle}\\[-0.15cm]
+    {\ifx\insertframesubtitle\@empty\else{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\fi}
+  \end{beamercolorbox}
+  \nointerlineskip
+  \hbox{\begin{beamercolorbox}[wd=\paperwidth,ht=0.045cm,dp=0pt]{frametitlerule}\end{beamercolorbox}}
+}
+\setbeamercolor{frametitle}{fg=white,bg=padovared}
+\setbeamercolor{framesubtitle}{fg=padovaredlight,bg=padovared}
+\setbeamercolor{frametitlerule}{bg=padovagold}
+
+% ------------------------------------------------------------------
+% Footline
+% ------------------------------------------------------------------
+\setbeamertemplate{footline}{
+  \leavevmode
+  \hbox{\begin{beamercolorbox}[wd=\paperwidth,ht=0.09cm,dp=0pt]{footlinerule}\end{beamercolorbox}}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.9cm,dp=0pt]{footline}
+    \begin{tikzpicture}[remember picture]
+      \useasboundingbox (0,0) rectangle (\paperwidth,0.9cm);
+      \ifx\padova@logored\@empty\else
+        \node[anchor=west,inner sep=0pt] at (0.2cm,0.47cm)
+          {\includegraphics[height=0.75cm]{\padova@logored}};
+      \fi
+      \node[anchor=center,text=padovagray,font=\usebeamerfont{footline}] at (0.5\paperwidth,0.47cm)
+        {\insertshortauthor};
+      \node[anchor=east,inner sep=0pt] at ({\paperwidth-0.4cm},0.47cm) {%
+        \begin{tikzpicture}[baseline=-0.5ex]
+          \node[circle,fill=padovared,inner sep=0pt,minimum size=13pt] (n) {\color{white}\fontsize{5.5}{5.5}\selectfont\bfseries\insertframenumber};
+          \node[anchor=west,text=padovagray,font=\tiny] at (n.east) {\,/\,\inserttotalframenumber};
+        \end{tikzpicture}%
+      };
+    \end{tikzpicture}
+  \end{beamercolorbox}
+}
+\setbeamercolor{footlinerule}{bg=padovagold}
+\setbeamercolor{footline}{fg=padovagray,bg=padovabg}
+
+% remove the default infolines head/foot leftovers
+\setbeamertemplate{headline}{}
+
+% ------------------------------------------------------------------
+% Blocks
+% ------------------------------------------------------------------
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{block title}{fg=white,bg=padovared}
+\setbeamercolor{block body}{fg=padovaink,bg=padovaredpale}
+\setbeamercolor{block title alerted}{fg=white,bg=padovareddark}
+\setbeamercolor{block body alerted}{fg=padovaink,bg=padovaredlight}
+\setbeamercolor{block title example}{fg=white,bg=padovapetrol}
+\setbeamercolor{block body example}{fg=padovaink,bg=padovapetrollight}
+\setbeamertemplate{block begin}{
+  \par\vskip\medskipamount
+  \begin{beamercolorbox}[rounded=true,shadow=false,leftskip=1pt,colsep*=.75ex]{block title}
+    \usebeamerfont*{block title}\insertblocktitle
+  \end{beamercolorbox}
+  {\parskip0pt\par}
+  \ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}
+  \usebeamerfont{block body}
+  \begin{beamercolorbox}[rounded=true,shadow=false,colsep*=.75ex,vmode]{block body}
+  \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}
+}
+\setbeamertemplate{block end}{
+  \end{beamercolorbox}
+  \vskip\smallskipamount
+}
+\setbeamertemplate{block alerted begin}{
+  \par\vskip\medskipamount
+  \begin{beamercolorbox}[rounded=true,shadow=false,leftskip=1pt,colsep*=.75ex]{block title alerted}
+    \usebeamerfont*{block title alerted}\insertblocktitle
+  \end{beamercolorbox}
+  {\parskip0pt\par}
+  \nointerlineskip\vskip-0.5pt
+  \usebeamerfont{block body alerted}
+  \begin{beamercolorbox}[rounded=true,shadow=false,colsep*=.75ex,vmode]{block body alerted}
+  \vskip-.75ex\vbox{}
+}
+\setbeamertemplate{block alerted end}{
+  \end{beamercolorbox}
+  \vskip\smallskipamount
+}
+\setbeamertemplate{block example begin}{
+  \par\vskip\medskipamount
+  \begin{beamercolorbox}[rounded=true,shadow=false,leftskip=1pt,colsep*=.75ex]{block title example}
+    \usebeamerfont*{block title example}\insertblocktitle
+  \end{beamercolorbox}
+  {\parskip0pt\par}
+  \nointerlineskip\vskip-0.5pt
+  \usebeamerfont{block body example}
+  \begin{beamercolorbox}[rounded=true,shadow=false,colsep*=.75ex,vmode]{block body example}
+  \vskip-.75ex\vbox{}
+}
+\setbeamertemplate{block example end}{
+  \end{beamercolorbox}
+  \vskip\smallskipamount
+}
+
+% ------------------------------------------------------------------
+% Lists
+% ------------------------------------------------------------------
+\setbeamertemplate{itemize item}{\textcolor{padovared}{\scriptsize\ensuremath{\blacktriangleright}}}
+\setbeamertemplate{itemize subitem}{\textcolor{padovagray}{\scriptsize\ensuremath{\bullet}}}
+\setbeamertemplate{itemize subsubitem}{\textcolor{padovagray}{\tiny\ensuremath{\circ}}}
+\setbeamertemplate{enumerate item}{\textcolor{padovared}{\bfseries\insertenumlabel.}}
+
+% ------------------------------------------------------------------
+% Table of contents
+% ------------------------------------------------------------------
+\setbeamertemplate{section in toc}{%
+  \textcolor{padovared}{\bfseries\inserttocsectionnumber.}~\inserttocsection}
+\setbeamertemplate{subsection in toc}{%
+  \hspace{1.2em}\textcolor{padovagray}{\inserttocsubsectionnumber}~\inserttocsubsection\par}
+\setlength{\leftmargini}{1.05em}
+\setlength{\leftmarginii}{1.05em}
+
+% caption
+\setbeamertemplate{caption}[numbered]
+\setbeamercolor{caption name}{fg=padovared}
+
+\endinput
