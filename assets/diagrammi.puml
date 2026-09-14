@@ -1,0 +1,24 @@
+@startuml producer-consumer
+skinparam packageStyle rectangle
+top to bottom direction
+
+title Architettura producer-consumer (preesistente)
+
+package "Producer (Baro, GPS, IMU, Mag)" {
+  component "Producer Task" as P
+  database "Buffer A" as BA
+  database "Buffer B" as BB
+}
+
+queue "WriteJob Queue" as Q
+component "Consumer Task" as C
+database "Scheda SD" as SD
+
+P -down-> BA : scrive
+P -down-> BB : scrive
+P -down-> Q : invia WriteJob
+
+Q -down-> C
+C -down-> SD : scrive un file per chunk
+
+@enduml

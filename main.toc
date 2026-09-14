@@ -1,5 +1,3 @@
-\beamer@sectionintoc {1}{Introduzione}{3}{0}{1}
-\beamer@sectionintoc {2}{Contesto e obiettivi}{5}{0}{2}
-\beamer@sectionintoc {3}{Lavoro svolto}{8}{0}{3}
-\beamer@sectionintoc {4}{Verifica e risultati}{13}{0}{4}
-\beamer@sectionintoc {5}{Conclusioni}{15}{0}{5}
+\beamer@sectionintoc {1}{Introduzione}{2}{0}{1}
+\beamer@sectionintoc {2}{Contesto e obiettivi}{6}{0}{2}
+\beamer@sectionintoc {3}{Lavoro svolto}{7}{0}{3}

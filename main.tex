@@ -18,7 +18,7 @@
 \title[EggLog Motion Core]{Evoluzione e ottimizzazione di un firmware embedded\\per un sistema di telemetria basato su ESP32}
 \subtitle{EggLog Motion Core -- telemetria per il motorsport motociclistico}
 \author{Zakaria Laoud}
-\relatore{Nome Cognome}
+\relatore{Marco Zanella}
 \date{Anno Accademico 2025/2026}
 
 \padovalogowhite{assets/logo_unipd_bianco.png}
@@ -30,18 +30,22 @@
 \newtcolorbox{cardpetrol}[1]{colback=padovapetrollight,colframe=padovapetrol,boxrule=0.5pt,arc=2pt,
   fonttitle=\bfseries\small,coltitle=white,colbacktitle=padovapetrol,title=#1,
   left=5pt,right=5pt,top=3pt,bottom=3pt}
+\newtcolorbox{cardgold}[1]{colback=padovagold!12,colframe=padovagold,boxrule=0.5pt,arc=2pt,
+  fonttitle=\bfseries\small,coltitle=white,colbacktitle=padovagold,title=#1,
+  left=5pt,right=5pt,top=3pt,bottom=3pt}
 
 \begin{document}
 
-\maketitle
-
-\begin{frame}{Indice}
-  \tableofcontents
-\end{frame}
+{
+    \setbeamertemplate{footline}{}
+    \begin{frame}[plain,noframenumbering]
+        \titlepage
+    \end{frame}
+}
 
 \section{Introduzione}
 
-\begin{frame}{L'azienda e il progetto}
+\begin{frame}{EggLog Motion Core: l'idea del progetto}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.46\textwidth}
       \vspace{2pt}
@@ -50,110 +54,111 @@
       \end{center}
       \vspace{6pt}
       \begin{itemize}
-        \item \textbf{Software house} padovana attiva in Digital Health, IIoT, Fintech
-        \item Team \textbf{giovane}, nato da esperienza maturata negli \textbf{USA}
+        \item \textbf{Software house} padovana
+        \item Nata grazie all'esperienza \textbf{USA}
+        \item Team \textbf{giovane}
       \end{itemize}
     \end{column}
     \begin{column}{0.5\textwidth}
-      \begin{block}{Il progetto: EggLog Motion Core}
+      \begin{block}{Obiettivi}
         \begin{itemize}
-          \item Telemetria per il \textbf{motorsport motociclistico}
-          \item \textbf{Firmware ESP32} + app mobile companion
+          \item Ottimizzazione del firmware (RAM \& CPU)
+          \item Evoluzione con nuove funzionalità
+          \item Analisi di fattibilità del \textbf{EggLog CAN Sniffer}
         \end{itemize}
       \end{block}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Motivazioni della scelta del progetto}
-  \begin{center}
-  \begin{tcbraster}[raster columns=2,raster rows=2,raster equal height,raster column skip=8pt,raster row skip=8pt]
-    \begin{cardred}{IoT ed embedded}
-      Passione coltivata fin dalle \textbf{scuole superiori}
-    \end{cardred}
-    \begin{cardred}{Automotive}
-      Interesse per \textbf{telemetria} e reti veicolari
-    \end{cardred}
-    \begin{cardpetrol}{Ambiente giovane}
-      Comunicazione \textbf{diretta}, confronto continuo
-    \end{cardpetrol}
-    \begin{cardpetrol}{Sfida tecnica}
-      Firmware più \textbf{strutturato}, crescita personale
-    \end{cardpetrol}
-  \end{tcbraster}
-  \end{center}
-\end{frame}
-
-\section{Contesto e obiettivi}
-
-\begin{frame}{Il contesto: sistema esistente e vincoli}
+\begin{frame}{Situazione di partenza: firmware}
   \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.5\textwidth}
-      \begin{block}{Sistema esistente}
-        \begin{itemize}
-          \item Dati salvati in \textbf{file CSV multipli} su SD
-          \item Architettura \textbf{producer-consumer} con \textbf{ping-pong buffer}
-        \end{itemize}
-      \end{block}
+    \begin{column}{0.42\textwidth}
+      {\color{padovared}\textbf{Sistema esistente}}
+      \begin{itemize}
+        \item Architettura \textbf{producer-consumer} con \textbf{ping-pong buffer}
+        \item Salvataggio di un file \textbf{CSV} per buffer riempito
+      \end{itemize}
+      \vspace{6pt}
+      {\color{padovapetrol}\textbf{Vincoli di progetto}}
+      \begin{itemize}
+        \item Firmware in \textbf{C++} su microcontrollori \textbf{ESP32}
+        \item \textbf{Sniffer CAN} separato in modalità \textbf{listen-only} sul bus della moto
+      \end{itemize}
     \end{column}
-    \begin{column}{0.5\textwidth}
-      \begin{alertblock}{Vincoli di progetto}
-        \begin{itemize}
-          \item Microcontrollore \textbf{ESP32-S3}, firmware in \textbf{C/C++}
-          \item \textbf{Sniffer CAN separato}, bus in modalità \textbf{listen-only}
-        \end{itemize}
-      \end{alertblock}
+    \begin{column}{0.55\textwidth}
+      \centering
+      \includegraphics[height=5cm,keepaspectratio]{assets/producer-consumer.png}\\[2pt]
+      {\scriptsize Producer-consumer con ping-pong buffering}
     \end{column}
   \end{columns}
 \end{frame}
 
 \begin{frame}{Tecnologie utilizzate}
-  \begin{center}
-    \begin{columns}[T,onlytextwidth]
-      \begin{column}{0.48\textwidth}
-        \centering
-        \includegraphics[height=2.7cm]{assets/esp32s3.png}\\[2pt]
-        {\scriptsize ESP32-S3-DevKitC-1}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-        \centering
-        \includegraphics[height=2.7cm]{assets/esp32wroom.jpeg}\\[2pt]
-        {\scriptsize ESP-WROOM-32}
-      \end{column}
-    \end{columns}
-  \end{center}
-  \vspace{8pt}
   \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.5\textwidth}
-      \begin{itemize}
-        \item \textbf{C++20} su ESP32 Arduino Core con \textbf{FreeRTOS}
-        \item App companion in \textbf{React Native / TypeScript}
-      \end{itemize}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \includegraphics[width=0.85\textwidth]{assets/esp32s3.png}\\[2pt]
+      {\scriptsize ESP32-S3-DevKitC-1}
     \end{column}
-    \begin{column}{0.5\textwidth}
+
+    \begin{column}{0.55\textwidth}
       \begin{itemize}
-        \item Versionamento con \textbf{Git}, build con \textbf{PlatformIO}
-        \item Documentazione con \textbf{PlantUML} e modello \textbf{C4}
+        \item \textbf{ESP32-S3/-WROOM-32} -- microcontrollore principale/sniffer can
+        \item \textbf{Arduino Core} -- framework per lo sviluppo del firmware su ESP32
+        \item \textbf{FreeRTOS} -- sistema operativo per la gestione dei task concorrenti
+        \item \textbf{PlatformIO} -- ambiente di build e gestione delle dipendenze
       \end{itemize}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Obiettivi dello stage}
+\begin{frame}{Situazione di partenza: applicazione}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.5\textwidth}
+      {\color{padovared}\textbf{Sistema esistente}}
+      \begin{itemize}
+        \item Visualizzazione dei dati in tempo reale
+        \item Nessun \textbf{modello 3D} del veicolo
+        \item Configurazione dei \textbf{parametri} limitata
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      {\color{padovapetrol}\textbf{Vincoli di progetto}}
+      \begin{itemize}
+        \item Piattaforma \textbf{React Native} / \textbf{TypeScript}
+        \item Comunicazione col device solo via \textbf{BLE}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{Contesto e obiettivi}
+
+\begin{frame}{Problemi iniziali da risolvere}
   \begin{center}
-  \begin{tcbraster}[raster columns=3,raster equal height,raster column skip=8pt]
-    \begin{cardred}{\centering Obbligatori}
-      \centering{\Huge\bfseries 9}\\[4pt]
-      \small refactoring storage, formato binario, recovery
+  \begin{tcbraster}[raster columns=3,raster equal height,raster column skip=8pt,raster row skip=8pt]
+    \begin{cardred}{Storage frammentato}
+      Tanti file CSV rallentano la \textbf{ricerca dei cluster liberi}
     \end{cardred}
-    \begin{cardred}{\centering Desiderabili}
-      \centering{\Huge\bfseries 3}\\[4pt]
-      \small modello 3D, dati ECU, avviso SD
+    \begin{cardred}{Formato inefficiente}
+      \textbf{CSV}: elevato spazio occupato e \textbf{recovery} complesso
     \end{cardred}
-    \begin{cardred}{\centering Facoltativi}
-      \centering{\Huge\bfseries 2}\\[4pt]
-      \small indicizzazione sessioni, gestione inattività
+    \begin{cardred}{Sessioni non gestite}
+      Nessuna organizzazione in \textbf{sessioni}
     \end{cardred}
+    \begin{cardred}{Stato non visibile}
+      Nessuno stato centrale \textbf{interno} né \textbf{LED} esterno
+    \end{cardred}
+    \begin{cardred}{Dati IMU e Barometro grezzi}
+      Tutti i dati vengono inviati, \textbf{anche se privi di significato}
+    \end{cardred}
+    \begin{cardpetrol}{App incompleta}
+      Nessun \textbf{modello 3D} del veicolo
+    \end{cardpetrol}
+    \begin{cardgold}{Dati ECU assenti}
+      Nessun accesso ai dati del \textbf{bus CAN}
+    \end{cardgold}
   \end{tcbraster}
   \end{center}
 \end{frame}
@@ -161,104 +166,313 @@
 \section{Lavoro svolto}
 
 \begin{frame}{Superfile: il nuovo sistema di persistenza}
-  \begin{center}
-  \begin{tikzpicture}[font=\small]
-    \def\w{10.4} \def\h{1.0}
-    \draw[fill=padovareddark,draw=none] (0,0) rectangle (1.3,\h);
-    \node[white,font=\bfseries\scriptsize] at (0.65,\h/2) {Header};
-    \draw[fill=padovared,draw=none] (1.3,0) rectangle (6.8,\h);
-    \node[white,font=\scriptsize] at (4.05,\h/2) {Dati validi (buffer circolare)};
-    \draw[fill=padovagold,draw=none] (6.8,0) rectangle (8.5,\h);
-    \node[white,font=\tiny,align=center] at (7.65,\h/2) {Finestra\\pre-azzerata};
-    \draw[fill=padovagraylight,draw=none] (8.5,0) rectangle (\w,\h);
-    \node[padovaink,font=\scriptsize] at (9.45,\h/2) {Libero};
-    \draw[draw=padovaink,line width=0.6pt] (0,0) rectangle (\w,\h);
-    \foreach \x in {1.3,6.8,8.5} \draw[draw=padovabg,line width=1pt] (\x,0)--(\x,\h);
-    \draw[-{Latex[length=2mm]},padovaink,line width=0.8pt]
-      (\w+0.55,\h*0.82) arc[start angle=15,end angle=330,radius=0.32];
-    \node[padovaink,font=\tiny,align=left,anchor=west] at (\w+0.95,\h*0.5) {scrittura\\circolare};
-  \end{tikzpicture}
-  \end{center}
-  \vspace{2pt}
-  \begin{itemize}
-    \item Sostituisce \textbf{tanti file CSV} con \textbf{un unico file} per sensore
-    \item \textbf{Buffer circolare} preallocato: zero frammentazione
-    \item \textbf{Finestra pre-azzerata} $\rightarrow$ recovery automatico dopo crash
-    \item Formato \textbf{binario compatto}: più campioni per byte
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Stato del dispositivo, LED e gestione sessione}
+  \framesubtitle{Risolve: storage frammentato, formato inefficiente e l'assenza di recovery}
   \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.44\textwidth}
-      \begin{tikzpicture}[font=\small]
-        \foreach \i/\col/\txt in {0/red/Errore o SD mancante,1/blue/Pairing BLE in corso,2/padovagold/Calibrazione IMU,3/padovapetrol/Sessione sospesa}{
-          \node[draw=none,fill=\col,circle,minimum size=9pt] at (0,-0.75*\i) {};
-          \node[anchor=west,font=\scriptsize] at (0.35,-0.75*\i) {\txt};
-        }
-      \end{tikzpicture}
-    \end{column}
-    \begin{column}{0.53\textwidth}
+    \begin{column}{0.42\textwidth}
       \begin{itemize}
-        \item Stato del dispositivo \textbf{centralizzato} (STAND\_BY, LOGGING, SUSPENDED\dots)
-        \item LED con \textbf{priorità esplicita} tra stati concorrenti
-        \item Sensori attivi \textbf{solo durante la sessione}
-        \item Comandi \textbf{START/STOP} via BLE per avvio e arresto
+        \item Sostituisce \textbf{tanti file CSV} con \textbf{un unico file}
+        \item \textbf{Buffer circolare} preallocato: zero frammentazione
+        \item Formato \textbf{binario compatto}: più campioni per byte
+        \item \textbf{Finestra pre-azzerata}: recovery automatico dopo crash
       \end{itemize}
+    \end{column}
+    \begin{column}{0.55\textwidth}
+      \centering
+      \begin{tikzpicture}[font=\scriptsize]
+        \def\Ro{1.7}  % raggio esterno dell'anello
+        \def\Ri{1.0}  % raggio interno (buco centrale)
+        \def\Rw{2.05} % raggio della freccia di scrittura
+        \def\Rt{2.3}  % raggio dell'etichetta "scrittura circolare"
+        \def\Rl{2.6}  % raggio delle etichette dei campi
+
+        % --- settori dell'anello ---
+        \path[fill=padovareddark]  (90:\Ri)  -- (90:\Ro)  arc (90:50:\Ro)    -- (50:\Ri)   arc (50:90:\Ri)    -- cycle; % Header
+        \path[fill=padovared]      (50:\Ri)  -- (50:\Ro)  arc (50:-140:\Ro)  -- (-140:\Ri) arc (-140:50:\Ri)  -- cycle; % Dati validi
+        \path[fill=padovagold]     (-140:\Ri)-- (-140:\Ro)arc (-140:-200:\Ro)-- (-200:\Ri) arc (-200:-140:\Ri)-- cycle; % Finestra pre-azzerata
+        \path[fill=padovagraylight](-200:\Ri)-- (-200:\Ro)arc (-200:-270:\Ro)-- (-270:\Ri) arc (-270:-200:\Ri)-- cycle; % Libero
+
+        % --- separatori e contorni ---
+        \foreach \a in {90,50,-140,-200} \draw[padovabg,line width=1pt] (\a:\Ri) -- (\a:\Ro);
+        \draw[padovaink,line width=0.6pt] (0,0) circle (\Ro);
+        \draw[padovaink,line width=0.6pt] (0,0) circle (\Ri);
+
+        % --- freccia "scrittura circolare" attorno all'anello ---
+        \draw[-{Latex[length=2.5mm]},padovaink,line width=1pt]
+          (100:\Rw) arc[start angle=100,end angle=-250,radius=\Rw];
+        \node[padovaink,font=\tiny] at (100:\Rt) {scrittura circolare};
+
+        % --- etichette con dimensione ---
+        \draw[padovagray,thin] (70:\Ro) -- (70:\Rl);
+        \node[anchor=west,align=left] at (70:\Rl) {\textbf{Header}};
+        \draw[padovagray,thin] (-45:\Ro) -- (-45:\Rl);
+        \node[anchor=west,align=left] at (-45:\Rl) {\textbf{Dati}};
+        \draw[padovagray,thin] (-170:\Ro) -- (-170:\Rl);
+        \node[anchor=east,align=left] at (-170:\Rl) {\textbf{Finestra di timestamp}\\ \textbf{pre-azzerati}\\{\tiny 2x FLUSH\_INTERVAL\_S}};
+        \draw[padovagray,thin] (125:\Ro) -- (125:\Rl);
+        \node[anchor=east,align=left] at (125:\Rl) {\textbf{Libero}};
+      \end{tikzpicture}
     \end{column}
   \end{columns}
 \end{frame}
 
+\begin{frame}{Stato del dispositivo, LED e gestione sessione}
+  \framesubtitle{Risolve: stato del firmware non visibile}
+
+  \begin{columns}[T,onlytextwidth]
+
+    % ============================================================
+    % COLONNA SINISTRA — stati LED
+    % ============================================================
+    \begin{column}{0.52\textwidth}
+
+      \begin{center}
+        \textbf{\small Segnalazioni visive del dispositivo}
+      \end{center}
+
+      \vspace{4pt}
+
+      \begin{tikzpicture}[
+        font=\scriptsize,
+        led/.style={
+          draw=none,
+          circle,
+          minimum size=7pt,
+          inner sep=0pt
+        },
+        state/.style={
+          anchor=west,
+          font=\scriptsize
+        }
+      ]
+
+        % Riga 1
+        \node[led,fill=red] at (0,0) {};
+        \node[state] at (0.25,0) {SD mancante};
+
+        \node[led,fill=red] at (2.9,0) {};
+        \node[state] at (3.15,0) {Errore};
+
+        \node[led,fill=blue] at (5.1,0) {};
+        \node[state] at (5.35,0) {Pairing BLE};
+
+        % Riga 2
+        \node[led,fill=blue] at (0,-0.55) {};
+        \node[state] at (0.25,-0.55) {Pairing Wi-Fi};
+
+        \node[led,fill=yellow] at (2.9,-0.55) {};
+        \node[state] at (3.15,-0.55) {Recupero dati};
+
+        \node[led,fill=yellow] at (5.1,-0.55) {};
+        \node[state] at (5.35,-0.55) {Calibrazione};
+
+        % Riga 3
+        \node[led,fill=violet] at (0,-1.10) {};
+        \node[state] at (0.25,-1.10) {Download};
+
+        \node[led,fill=violet] at (2.9,-1.10) {};
+        \node[state] at (3.15,-1.10) {Cancellazione};
+
+        \node[led,fill=green] at (5.1,-1.10) {};
+        \node[state] at (5.35,-1.10) {Sospensione};
+
+        % Riga 4
+        \node[led,fill=green] at (0,-1.65) {};
+        \node[state] at (0.25,-1.65) {Logging};
+
+        \node[led,fill=white,draw=black] at (2.9,-1.65) {};
+        \node[state] at (3.15,-1.65) {Stand-by};
+
+      \end{tikzpicture}
+
+      \vspace{5pt}
+
+      \begin{center}
+        {\tiny Priorità deterministica in caso di stati concorrenti}
+      \end{center}
+
+    \end{column}
+
+    % ============================================================
+    % COLONNA DESTRA — gestione stato
+    % ============================================================
+    \begin{column}{0.45\textwidth}
+
+      \begin{itemize}
+        \item Stato del dispositivo \textbf{centralizzato}
+        \item Stati firmware: \textbf{STAND\_BY}, \textbf{LOGGING},
+              \textbf{CALIBRATING}, \textbf{PAIRING}\dots
+        \item \textbf{Colore e pattern di illuminazione}
+              specifici per ogni stato
+      \end{itemize}
+
+    \end{column}
+
+  \end{columns}
+\end{frame}
+
 \begin{frame}{Calibrazione dei sensori}
+  \framesubtitle{Risolve: dati IMU senza significato}
+  \begin{itemize}
+    \item \textbf{Barometro}: calibrazione \textbf{altitudine} ad inizio sessione
+    \item Precisione \textbf{2 m} vs \textbf{25 m} GPS
+    \item \textbf{IMU}: calibrazione guidata in \textbf{3 passaggi}
+    \item Macchina a stati con \textbf{retry isolato}
+  \end{itemize}
+
+  \vspace{4pt}
   \begin{center}
-  \begin{tikzpicture}[font=\scriptsize,
-      box/.style={draw=padovared,fill=padovaredpale,rounded corners=2pt,minimum width=3.1cm,minimum height=1.3cm,align=center,font=\small}]
-    \node[box] (s1) at (0,0) {1. Moto\\in verticale};
-    \node[box] (s2) at (4.2,0) {2. Moto\\inclinata a destra};
-    \node[box] (s3) at (8.4,0) {3. Salvataggio\\calibrazione};
-    \draw[-{Latex[length=2.5mm]},padovared,line width=1pt] (s1)--(s2);
-    \draw[-{Latex[length=2.5mm]},padovared,line width=1pt] (s2)--(s3);
+    \begin{tikzpicture}[
+        font=\scriptsize,
+        box/.style={
+          draw=padovared,
+          fill=padovaredpale,
+          rounded corners=2pt,
+          minimum width=3.1cm,
+          minimum height=1.3cm,
+          align=center,
+          font=\small
+        },
+        arrow/.style={
+          -{Latex[length=2.5mm]},
+          padovared,
+          line width=1pt
+        },
+        retry/.style={
+          -{Latex[length=2mm]},
+          gray,
+          line width=0.8pt
+        }
+      ]
+
+      % Stati
+      \node[box] (s1) at (0,0) {1. Moto\\in verticale};
+      \node[box] (s2) at (4.2,0) {2. Moto\\inclinata a destra};
+      \node[box] (s3) at (8.4,0) {3. Salvataggio\\calibrazione};
+
+      % Transizioni principali
+      \draw[arrow] (s1.east) -- node[above,font=\scriptsize] {successo} (s2.west);
+      \draw[arrow] (s2.east) -- node[above,font=\scriptsize] {successo} (s3.west);
+
+      % Retry stato 1
+      \draw[retry]
+        (s1.north west) to[out=160,in=20,looseness=1]
+        node[above,font=\scriptsize] {retry} (s1.north east);
+
+      % Retry stato 2
+      \draw[retry]
+        (s2.north west) to[out=160,in=20,looseness=1]
+        node[above,font=\scriptsize] {retry} (s2.north east);
+
+      % Retry stato 3
+      \draw[retry]
+        (s3.north west) to[out=160,in=20,looseness=1]
+        node[above,font=\scriptsize] {retry} (s3.north east);
+
+      % Stato ABORT
+      \node[
+        draw=padovared,
+        fill=white,
+        rounded corners=2pt,
+        minimum width=2.4cm,
+        minimum height=0.75cm,
+        align=center,
+        font=\small
+      ] (abort) at (4.2,-2.1) {ABORT};
+
+      % Abort da ogni stato
+      \draw[arrow]
+        (s1.south) -- (abort.north west);
+
+      \draw[arrow]
+        (s2.south) -- (abort.north);
+
+      \draw[arrow]
+        (s3.south) -- (abort.north east);
+
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Gestione delle sessioni}
+  \framesubtitle{Risolve: sessioni non gestite}
+  \begin{center}
+  \begin{tikzpicture}[font=\tiny,
+      lbox/.style={rounded corners=2pt,minimum width=2.3cm,minimum height=0.7cm,align=center,font=\tiny}]
+    % lifeline participants
+    \node[lbox,draw=padovapetrol,fill=padovapetrollight] (app) at (0,0) {EggLog\\App};
+    \node[lbox,draw=padovared,fill=padovaredpale] (session) at (2.7,0) {Session\\(dispatcher)};
+    \node[lbox,draw=padovared,fill=padovaredpale] (storage) at (5.4,0) {SD +\\SuperFile};
+    \node[lbox,draw=padovared,fill=padovaredpale] (cal) at (8.1,0) {Calibrazione\\altitudine};
+    \node[lbox,draw=padovared,fill=padovaredpale] (state) at (10.8,0) {Stato\\globale};
+
+    \foreach \x in {0,2.7,5.4,8.1,10.8}
+      \draw[dashed,padovagray,line width=0.4pt] (\x,-0.4) -- (\x,-4.3);
+
+    % messages, in order top to bottom
+    \draw[-{Latex[length=2mm]},padovapetrol,line width=0.8pt]
+      (0,-1.0) -- (2.7,-1.0) node[midway,above,font=\tiny]{START};
+    \draw[-{Latex[length=2mm]},padovared,line width=0.8pt]
+      (2.7,-1.8) -- (5.4,-1.8) node[midway,above,font=\tiny]{crea sessione};
+    \draw[-{Latex[length=2mm]},padovared,line width=0.8pt]
+      (2.7,-2.6) -- (8.1,-2.6) node[midway,above,font=\tiny]{calibra altitudine};
+    \draw[-{Latex[length=2mm]},padovared,line width=0.8pt]
+      (2.7,-3.4) -- (10.8,-3.4) node[midway,above,font=\tiny]{imposta LOGGING};
+    \draw[-{Latex[length=2mm]},padovapetrol,line width=0.8pt]
+      (2.7,-4.1) -- (0,-4.1) node[midway,below,font=\tiny]{LOGGING};
   \end{tikzpicture}
   \end{center}
-  \vspace{6pt}
+  \vspace{2pt}
   \begin{itemize}
-    \item \textbf{Barometro} più preciso del GPS in quota (2 m contro 25 m)
-    \item Calibrazione altitudine tramite \textbf{mediana} dei campioni
-    \item \textbf{IMU}: calibrazione guidata in \textbf{3 passaggi}
-    \item Macchina a stati con \textbf{retry isolato} per singolo step
+    \item Ogni comunicazione avviene mediante \textbf{BLE} tra firmware e applicazione
   \end{itemize}
 \end{frame}
 
 \begin{frame}{EggLog CAN Sniffer}
+  \framesubtitle{Risolve: dati ECU mancanti}
+  Nodo \textbf{separato}, non collegato al microcontrollore centrale
   \begin{center}
   \begin{tikzpicture}[font=\scriptsize,
-      box/.style={draw=padovapetrol,fill=padovapetrollight,rounded corners=2pt,minimum width=3.0cm,minimum height=1.2cm,align=center,font=\small}]
+      box/.style={draw=padovapetrol,fill=padovapetrollight,rounded corners=2pt,minimum width=2.4cm,minimum height=1.1cm,align=center,font=\small}]
     \node[box] (ecu) at (0,0) {Bus CAN\\della moto};
-    \node[box] (sniffer) at (4.6,0) {EggLog\\CAN Sniffer};
-    \node[box] (app) at (9.2,0) {EggLog\\Motion Core};
+    \node[box] (sniffer) at (3.2,0) {EggLog\\CAN Sniffer};
+    \node[box] (app) at (6.4,0) {EggLog\\Motion Core};
+    \node[box,draw=padovagray,fill=padovagraylight] (sd) at (9.6,0) {microSD};
+
+    % Bus CAN -> Sniffer: collegamento cablato
     \draw[-{Latex[length=2.5mm]},padovapetrol,line width=1pt] (ecu)--(sniffer)
-      node[midway,above,font=\tiny]{listen-only + TVS};
-    \draw[-{Latex[length=2.5mm]},padovapetrol,line width=1pt] (sniffer)--(app)
-      node[midway,above,font=\tiny]{BLE advertising};
+      node[midway,above,font=\tiny]{};
+
+    % Sniffer -> EggLog: BLE advertising, wireless (tratteggiato + ondine wifi)
+    \draw[-{Latex[length=2.5mm]},padovapetrol,line width=1pt,dashed] (sniffer)--(app)
+      node[midway,below,font=\tiny]{BLE};
+    \foreach \r in {0.12,0.22} {
+      \draw[padovapetrol,line width=0.7pt]
+        ($(4.8,0.55)+(200:\r)$) arc[start angle=200,end angle=340,radius=\r];
+    }
+    \fill[padovapetrol] (4.8,0.55) circle (0.025);
+
+    % EggLog -> microSD: scrittura locale, cablata
+    \draw[-{Latex[length=2.5mm]},padovagray,line width=1pt] (app)--(sd)
+      node[midway,below,font=\tiny]{write};
   \end{tikzpicture}
   \end{center}
   \vspace{6pt}
+  \textcolor{padovared}{\textbf{Problemi risolti:}}
   \begin{itemize}
-    \item Nodo \textbf{separato}, nessun collegamento elettrico diretto
-    \item Bus CAN in modalità \textbf{listen-only}: zero interferenza
-    \item Protezione \textbf{TVS} sulle linee CAN\_H / CAN\_L
-    \item Dati trasmessi via \textbf{BLE advertising broadcast}
+    \item \textcolor{padovared}{\textbf{Transienti elettrici}} $\rightarrow$ \textcolor{padovapetrol}{\textbf{TVS} in serie}
+    \item \textcolor{padovared}{\textbf{Interferenza bus}} $\rightarrow$ \textcolor{padovapetrol}{controller \textbf{listen-only}}
+    \item \textcolor{padovared}{\textbf{Massa flottante}} $\rightarrow$ \textcolor{padovapetrol}{collegamento \textbf{a Y}}
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Applicazione mobile: nuove funzionalità}
+  \framesubtitle{Risolve: app incompleta (modello 3D e avviso stato SD)}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.42\textwidth}
       \begin{itemize}
         \item \textbf{Modello 3D} del veicolo in tempo reale
-        \item Rendering \textbf{disaccoppiato} dal ciclo BLE
-        \item Avviso di \textbf{microSD mancante}
-        \item Configurazione dei \textbf{parametri} via app
+        \item Avviso di \textbf{microSD} mancante
+        \item Visualizzazione dello \textbf{spazio occupato} dei superfile
       \end{itemize}
     \end{column}
     \begin{column}{0.4\textwidth}
@@ -268,48 +482,38 @@
   \end{columns}
 \end{frame}
 
-\section{Verifica e risultati}
-
-\begin{frame}{Verifica e validazione}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.5\textwidth}
-      \begin{itemize}
-        \item \textbf{3 test su campo} su una Yamaha MT-07 reale
-        \item Confronto di \textbf{verosimiglianza} con la dinamica di guida
-        \item \textbf{2 criticità} individuate e risolte
-        \item \textbf{2 test su banco} per inattività e fallback IMU
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.46\textwidth}
-      \small
-      \begin{tabular}{@{}lc@{}}
-        \toprule
-        \textbf{Test} & \textbf{Esito} \\
-        \midrule
-        C-1 Guida su strada & \textcolor{padovapetrol}{\ding{51}} \\
-        C-2 Guida su strada & \textcolor{padovapetrol}{\ding{51}} \\
-        C-3 Guida su strada & \textcolor{padovared}{\ding{51}*} \\
-        B-1 Inattività & \textcolor{padovapetrol}{\ding{51}} \\
-        B-2 Fallback IMU & \textcolor{padovapetrol}{\ding{51}} \\
-        \bottomrule
-      \end{tabular}\\[3pt]
-      {\tiny * criticità risolta dopo il test}
-    \end{column}
-  \end{columns}
+\begin{frame}[plain,noframenumbering]
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=south east, xshift=3cm, yshift=0.3cm, opacity=0.3]
+      at (current page.south east)
+      {\includegraphics[width=0.53\paperwidth]{assets/logo_unipd_rosso.png}};
+  \end{tikzpicture}
+  \begin{center}
+    \vspace{1.8cm}
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}\Huge Risultati ottenuti}\\[0.8cm]
+    {\color{padovared}\rule{2.6cm}{1.6pt}}\\[1.2cm]
+    {\large Tempo di scrittura su microSD\\
+     Occupazione di CPU e RAM}\\[1.4cm]
+  \end{center}
 \end{frame}
 
 \begin{frame}{Risultati: benchmark prestazionali}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.48\textwidth}
-      \centering{\scriptsize\bfseries Tempo di scrittura (µs)}\\
+      \centering{\scriptsize\bfseries Tempo di scrittura (µs)}\\[2pt]
       \begin{tikzpicture}
         \begin{axis}[
-          ybar,bar width=10pt,width=6.2cm,height=4.1cm,
+          ybar,bar width=11pt,width=6.4cm,height=4.3cm,
           symbolic x coords={Media,Massimo},xtick=data,
-          ylabel={\tiny µs},ymin=0,
-          legend style={font=\tiny,at={(0.5,-0.28)},anchor=north,legend columns=-1},
+          ylabel={\tiny µs},
+          ymin=0,ymax=760,
+          axis lines*=left,
+          ymajorgrids,grid style={gray!20},
+          legend style={font=\tiny,at={(0.5,-0.30)},anchor=north,legend columns=-1,draw=none},
           tick label style={font=\tiny},
-          nodes near coords, every node near coord/.append style={font=\tiny},
+          label style={font=\tiny},
+          nodes near coords={\pgfmathprintnumber[precision=0,fixed]{\pgfplotspointmeta}},
+          every node near coord/.append style={font=\tiny,yshift=1pt},
           enlarge x limits=0.35]
           \addplot[fill=padovagray] coordinates {(Media,150.045) (Massimo,665.726)};
           \addplot[fill=padovared] coordinates {(Media,83.330) (Massimo,131.747)};
@@ -318,15 +522,20 @@
       \end{tikzpicture}
     \end{column}
     \begin{column}{0.48\textwidth}
-      \centering{\scriptsize\bfseries Occupazione CPU (\%)}\\
+      \centering{\scriptsize\bfseries Occupazione CPU (\%)}\\[2pt]
       \begin{tikzpicture}
         \begin{axis}[
-          ybar,bar width=10pt,width=6.2cm,height=4.1cm,
+          ybar,bar width=11pt,width=6.4cm,height=4.3cm,
           symbolic x coords={Prima sess.,Durante sess.},xtick=data,
-          ylabel={\tiny \%},ymin=0,ymax=32,
-          legend style={font=\tiny,at={(0.5,-0.28)},anchor=north,legend columns=-1},
+          ylabel={\tiny \%},
+          ymin=0,ymax=34,
+          axis lines*=left,
+          ymajorgrids,grid style={gray!20},
+          legend style={font=\tiny,at={(0.5,-0.30)},anchor=north,legend columns=-1,draw=none},
           tick label style={font=\tiny},
-          nodes near coords, every node near coord/.append style={font=\tiny},
+          label style={font=\tiny},
+          nodes near coords={\pgfmathprintnumber[precision=0,fixed]{\pgfplotspointmeta}\%},
+          every node near coord/.append style={font=\tiny,yshift=1pt},
           enlarge x limits=0.35]
           \addplot[fill=padovagray] coordinates {(Prima sess.,25) (Durante sess.,25)};
           \addplot[fill=padovared] coordinates {(Prima sess.,3) (Durante sess.,23)};
@@ -335,31 +544,163 @@
       \end{tikzpicture}
     \end{column}
   \end{columns}
-  \vspace{2pt}
-  \begin{center}
-    \small RAM: \textbf{+6,3\%} \quad$\vert$\quad \textbf{37/38 requisiti} raggiunti complessivamente
-  \end{center}
 \end{frame}
 
-\section{Conclusioni}
-
-\begin{frame}{Conclusioni}
+\begin{frame}{Risultati: occupazione RAM per sensore}
   \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.34\textwidth}
-      \centering
+    \begin{column}{0.55\textwidth}
       \begin{tikzpicture}
-        \draw[line width=6pt,padovagraylight] (0,0) circle (1.35cm);
-        \draw[line width=6pt,padovared,line cap=round] (90:1.35cm) arc[start angle=90,end angle=90-360*0.973,radius=1.35cm];
-        \node[font=\Large\bfseries,padovared] at (0,0.12) {37/38};
-        \node[font=\scriptsize,padovagray] at (0,-0.32) {requisiti};
+        \begin{axis}[
+          ybar,bar width=9pt,width=7.2cm,height=5cm,
+          symbolic x coords={Barometro,GPS,IMU,Magnet.},xtick=data,
+          ylabel={\tiny KB},
+          ymin=0,ymax=145,
+          axis lines*=left,
+          ymajorgrids,grid style={gray!20},
+          legend style={font=\tiny,at={(0.5,-0.22)},anchor=north,legend columns=-1,draw=none},
+          tick label style={font=\tiny,rotate=20,anchor=north east},
+          label style={font=\tiny},
+          nodes near coords={\pgfmathprintnumber[precision=1,fixed]{\pgfplotspointmeta}},
+          every node near coord/.append style={font=\tiny,yshift=1pt},
+          enlarge x limits=0.2]
+          \addplot[fill=padovagray] coordinates {(Barometro,5.0) (GPS,4.0) (IMU,123.0) (Magnet.,32.0)};
+          \addplot[fill=padovared] coordinates {(Barometro,4.7) (GPS,39.4) (IMU,130.3) (Magnet.,0)};
+          \legend{Prima,Dopo}
+        \end{axis}
       \end{tikzpicture}
     \end{column}
-    \begin{column}{0.62\textwidth}
+    \begin{column}{0.42\textwidth}
+      \footnotesize
       \begin{itemize}
-        \item \textbf{37/38 requisiti} raggiunti, tutti gli obiettivi O/D/F
-        \item Firmware più \textbf{affidabile, efficiente ed estendibile}
-        \item Limiti: \textbf{+6,3\% RAM}, sniffer testato solo su \textbf{Yamaha MT-07}
-        \item Crescita personale su \textbf{firmware, FreeRTOS, protocolli CAN/BLE}
+        \item Totale buffer: \textbf{164{,}0 KB} $\rightarrow$ \textbf{174{,}4 KB} (\textbf{+6{,}3\%})
+        \item GPS e IMU aumentano (+35{,}4 KB e +7{,}3 KB): ridurre accessi alla microSD
+        \item Barometro quasi invariato ($-$0{,}3 KB)
+        \item Magnetometro disabilitato: buffer da 32 KB azzerato
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Perché la RAM è aumentata (e il sistema è comunque migliorato)}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.58\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[
+          xmode=log,log basis x=10,
+          xmin=15,xmax=6000,
+          symbolic y coords={Barometro,GPS,IMU},
+          ytick=data,
+          width=7.6cm,height=5cm,
+          xlabel={\tiny record/buffer},
+          axis y line*=left,
+          axis x line*=bottom,
+          xmajorgrids,grid style={gray!20},
+          tick label style={font=\tiny},
+          label style={font=\tiny},
+          legend style={font=\tiny,at={(0.5,-0.28)},anchor=north,legend columns=-1,draw=none},
+          clip=false]
+
+          % linee di collegamento (disegnate per prime, restano sotto i marker)
+          \draw[gray!70,line width=1.2pt] (axis cs:80,Barometro) -- (axis cs:120,Barometro);
+          \draw[gray!70,line width=1.2pt] (axis cs:27,GPS) -- (axis cs:480,GPS);
+          \draw[gray!70,line width=1.2pt] (axis cs:1124,IMU) -- (axis cs:3336,IMU);
+
+          % marker "Prima" e "Ora"
+          \addplot[only marks,mark=*,mark size=2.6pt,color=padovagray]
+            coordinates {(80,Barometro) (27,GPS) (1124,IMU)};
+          \addplot[only marks,mark=*,mark size=2.6pt,color=padovared]
+            coordinates {(120,Barometro) (480,GPS) (3336,IMU)};
+          \legend{Prima,Ora}
+
+          % etichette con i valori assoluti
+          \node[font=\tiny,anchor=south] at (axis cs:80,Barometro) {\scriptsize 80};
+          \node[font=\tiny,anchor=south] at (axis cs:120,Barometro) {\scriptsize 120};
+          \node[font=\tiny,anchor=south] at (axis cs:27,GPS) {\scriptsize 27};
+          \node[font=\tiny,anchor=south] at (axis cs:480,GPS) {\scriptsize 480};
+          \node[font=\tiny,anchor=south] at (axis cs:1124,IMU) {\scriptsize 1124};
+          \node[font=\tiny,anchor=south] at (axis cs:3336,IMU) {\scriptsize 3336};
+
+          % fattore moltiplicativo, centrato sul segmento
+          \node[font=\tiny\bfseries,color=padovared,anchor=north] at (axis cs:98,Barometro) {$\times1{,}5$};
+          \node[font=\tiny\bfseries,color=padovared,anchor=north] at (axis cs:114,GPS) {$\times17{,}8$};
+          \node[font=\tiny\bfseries,color=padovared,anchor=north] at (axis cs:1936,IMU) {$\times3{,}0$};
+        \end{axis}
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.39\textwidth}
+      \footnotesize
+      \begin{itemize}
+        \item Formato binario: fino a 17,8$\times$ più campioni
+        \item Allocazione posticipata: buffer solo durante la sessione
+        \item CPU a riposo: dal 25\% al 3\%
+        \item Più RAM in cambio di meno scritture su SD
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Perché la RAM è aumentata (e il sistema è comunque migliorato)}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.58\textwidth}
+      \resizebox{\linewidth}{!}{%
+      \begin{tikzpicture}
+        % --- sfondo card (allargata per la colonna badge a destra) ---
+        \fill[padovagray!5,rounded corners=8pt] (-1.9,-4.5) rectangle (9.2,1.0);
+
+        % --- riga evidenziata: GPS ---
+        \fill[padovared!8,rounded corners=4pt] (-1.9,-2.15) rectangle (9.2,-1.05);
+
+        % --- griglia di riferimento verticale ---
+        \foreach \x/\lbl in {0/10,2.4/100,4.8/1000,7.2/10000}{
+          \draw[gray!25,line width=0.3pt] (\x,0.8) -- (\x,-3.9);
+          \node[font=\tiny,color=gray!70] at (\x,-4.15) {\lbl};
+        }
+        \node[font=\tiny,color=gray!70] at (2.7,-4.55) {record / buffer (scala logaritmica)};
+
+        % =========== Barometro ===========
+        \node[font=\small\bfseries,anchor=east] at (-1.7,0) {Barometro};
+        \draw[padovagray!60,line width=1.4pt] (2.17,0) -- (2.59,0);
+        \fill[padovagray] (2.17,0) circle (2.4pt);
+        \fill[padovared] (2.59,0) circle (3pt);
+        \node[font=\small,color=padovagray!90,anchor=south] at (2.0,0.18) {80};
+        \node[font=\small\bfseries,color=padovared,anchor=south] at (2.8,0.18) {120};
+        \node[font=\Large\bfseries,fill=padovared,text=white,rounded corners=4pt,
+              inner sep=4pt,anchor=west] at (7.9,0) {$\times1{,}5$};
+
+        % =========== GPS (evidenziato) ===========
+        \node[font=\small\bfseries,anchor=east,color=padovared] at (-1.7,-1.6) {GPS};
+        \draw[padovagray!60,line width=1.4pt] (1.04,-1.6) -- (4.04,-1.6);
+        \fill[padovagray] (1.04,-1.6) circle (2.4pt);
+        \fill[padovared] (4.04,-1.6) circle (3.6pt);
+        \node[font=\small,color=padovagray!90,anchor=south] at (1.04,-1.42) {27};
+        \node[font=\small\bfseries,color=padovared,anchor=south] at (4.04,-1.42) {480};
+        \node[font=\Large\bfseries,fill=padovared,text=white,rounded corners=4pt,
+              inner sep=4pt,anchor=west] at (7.9,-1.6) {$\times17{,}8$};
+
+        % =========== IMU ===========
+        \node[font=\small\bfseries,anchor=east] at (-1.7,-3.2) {IMU};
+        \draw[padovagray!60,line width=1.4pt] (4.92,-3.2) -- (6.06,-3.2);
+        \fill[padovagray] (4.92,-3.2) circle (2.4pt);
+        \fill[padovared] (6.06,-3.2) circle (3pt);
+        \node[font=\small,color=padovagray!90,anchor=south] at (4.92,-3.02) {1124};
+        \node[font=\small\bfseries,color=padovared,anchor=south] at (6.06,-3.02) {3336};
+        \node[font=\Large\bfseries,fill=padovared,text=white,rounded corners=4pt,
+              inner sep=4pt,anchor=west] at (7.9,-3.2) {$\times3{,}0$};
+
+        % --- legenda ---
+        \fill[padovagray] (0,-5.0) circle (2.4pt);
+        \node[font=\tiny,anchor=west] at (0.2,-5.0) {Prima};
+        \fill[padovared] (2.0,-5.0) circle (2.4pt);
+        \node[font=\tiny,anchor=west] at (2.2,-5.0) {Ora};
+      \end{tikzpicture}}
+    \end{column}
+    \begin{column}{0.39\textwidth}
+      \footnotesize
+      \begin{itemize}
+        \item Formato binario: fino a 17,8$\times$ più campioni
+        \item Allocazione posticipata: buffer solo durante la sessione
+        \item CPU a riposo: dal 25\% al 3\%
+        \item Più RAM in cambio di meno scritture su SD
       \end{itemize}
     \end{column}
   \end{columns}
@@ -376,6 +717,56 @@
     {\usebeamerfont{title}\usebeamercolor[fg]{title}\Huge Grazie per l'attenzione}\\[0.8cm]
     {\color{padovared}\rule{2.6cm}{1.6pt}}\\[0.8cm]
     {\Large\color{padovared}\bfseries Domande?}\\[1.4cm]
+  \end{center}
+\end{frame}
+
+\setbeamertemplate{footline}{}
+\begin{frame}[noframenumbering]{Backup: dimensione dei record e dei buffer}
+  \footnotesize
+  \centering
+  \begin{tabular}{l ccc ccc}
+    \hline
+    & \multicolumn{3}{c}{\textbf{Prima}} & \multicolumn{3}{c}{\textbf{Ora}} \\
+    \cline{2-4}\cline{5-7}
+    \textbf{Sensore} & Record & Buffer & Rec/buf & Record & Buffer & Rec/buf \\
+    \hline
+    Barometro    & $\approx$32 B & 2{,}5 KB  & $\approx$80   & 20 B & 2{,}3 KB  & 120  \\
+    GPS          & $\approx$75 B & 2{,}0 KB  & $\approx$27   & 42 B & 19{,}7 KB & 480  \\
+    IMU          & $\approx$56 B & 61{,}5 KB & $\approx$1124 & 20 B & 65{,}2 KB & 3336 \\
+    Magnetometro & $\approx$40 B & 16{,}0 KB & $\approx$410  & \multicolumn{3}{c}{Disabilitato} \\
+    \hline
+  \end{tabular}
+
+  \vspace{0.4cm}
+  \tiny\itshape
+  Dimensione del record e record/buffer
+  "Prima" approssimati per la variabilità del formato testuale CSV.
+\end{frame}
+
+\setbeamertemplate{footline}{}
+
+\begin{frame}[noframenumbering]{Backup: formato dell'header del Superfile}
+  \footnotesize
+  Ogni campo dell'header risponde a una domanda precisa quando il firmware riapre o scrive nel file.
+
+  \begin{center}
+  \renewcommand{\arraystretch}{1.35}
+  \begin{tabular}{@{}l p{0.62\linewidth}@{}}
+    \hline
+    \textbf{Campo} & \textbf{Funzione} \\
+    \hline
+    \texttt{magic} / \texttt{version} &
+      Permette di controllare che il file non sia corrotto / il versionamento per future evuluzioni\\
+    \texttt{dataStartOffset} &
+      Indicare da quale record iniziano i dati ancora valid\\
+    \texttt{dataEndOffset} &
+      Indicare il prossimo record libero\\
+    \texttt{recordCount} &
+      Indica quanti record validi sono presenti ora\\
+    \texttt{wrapped} &
+      Segnalare se il buffer ha già fatto un giro completo e sta sovrascrivendo dati vecchi\\
+    \hline
+  \end{tabular}
   \end{center}
 \end{frame}
 

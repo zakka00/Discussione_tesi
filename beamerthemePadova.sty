@@ -1,8 +1,3 @@
-%% beamerthemePadova.sty
-%% Tema non ufficiale per l'Universita' degli Studi di Padova
-%% Colore istituzionale: Pantone 1807 (#9B0014)
-%% Richiede compilazione con LuaLaTeX o XeLaTeX (usa fontspec)
-
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemePadova}[2026/09/10 v1.0 Padova beamer theme]
 
@@ -152,7 +147,7 @@
           {\includegraphics[height=0.75cm]{\padova@logored}};
       \fi
       \node[anchor=center,text=padovagray,font=\usebeamerfont{footline}] at (0.5\paperwidth,0.47cm)
-        {\insertshortauthor};
+        {\insertsubtitle};
       \node[anchor=east,inner sep=0pt] at ({\paperwidth-0.4cm},0.47cm) {%
         \begin{tikzpicture}[baseline=-0.5ex]
           \node[circle,fill=padovared,inner sep=0pt,minimum size=13pt] (n) {\color{white}\fontsize{5.5}{5.5}\selectfont\bfseries\insertframenumber};
