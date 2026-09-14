@@ -139,21 +139,21 @@
     \begin{cardred}{Formato inefficiente}
       \textbf{CSV}: elevato spazio occupato e \textbf{recovery} complesso
     \end{cardred}
-    \begin{cardred}{Sessioni non gestite}
-      Nessuna organizzazione in \textbf{sessioni}
-    \end{cardred}
     \begin{cardred}{Stato non visibile}
       Nessuno stato centrale \textbf{interno} né \textbf{LED} esterno
     \end{cardred}
     \begin{cardred}{Dati IMU e Barometro grezzi}
       Tutti i dati vengono inviati, \textbf{anche se privi di significato}
     \end{cardred}
-    \begin{cardpetrol}{App incompleta}
-      Nessun \textbf{modello 3D} del veicolo
-    \end{cardpetrol}
+    \begin{cardred}{Sessioni non gestite}
+      Nessuna organizzazione in \textbf{sessioni}
+    \end{cardred}
     \begin{cardgold}{Dati ECU assenti}
       Nessun accesso ai dati del \textbf{bus CAN}
     \end{cardgold}
+    \begin{cardpetrol}{App incompleta}
+      Nessun \textbf{modello 3D} del veicolo
+    \end{cardpetrol}
   \end{tcbraster}
   \end{center}
 \end{frame}
@@ -202,7 +202,7 @@
         \draw[padovagray,thin] (-45:\Ro) -- (-45:\Rl);
         \node[anchor=west,align=left] at (-45:\Rl) {\textbf{Dati}};
         \draw[padovagray,thin] (-170:\Ro) -- (-170:\Rl);
-        \node[anchor=east,align=left] at (-170:\Rl) {\textbf{Finestra di timestamp}\\ \textbf{pre-azzerati}\\{\tiny 2x FLUSH\_INTERVAL\_S}};
+        \node[anchor=east,align=left] at (-170:\Rl) {\textbf{Finestra di timestamp}\\ \textbf{pre-azzerati}};
         \draw[padovagray,thin] (125:\Ro) -- (125:\Rl);
         \node[anchor=east,align=left] at (125:\Rl) {\textbf{Libero}};
       \end{tikzpicture}
