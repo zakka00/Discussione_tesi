@@ -579,64 +579,6 @@
 \begin{frame}{Perché la RAM è aumentata (e il sistema è comunque migliorato)}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.58\textwidth}
-      \begin{tikzpicture}
-        \begin{axis}[
-          xmode=log,log basis x=10,
-          xmin=15,xmax=6000,
-          symbolic y coords={Barometro,GPS,IMU},
-          ytick=data,
-          width=7.6cm,height=5cm,
-          xlabel={\tiny record/buffer},
-          axis y line*=left,
-          axis x line*=bottom,
-          xmajorgrids,grid style={gray!20},
-          tick label style={font=\tiny},
-          label style={font=\tiny},
-          legend style={font=\tiny,at={(0.5,-0.28)},anchor=north,legend columns=-1,draw=none},
-          clip=false]
-
-          % linee di collegamento (disegnate per prime, restano sotto i marker)
-          \draw[gray!70,line width=1.2pt] (axis cs:80,Barometro) -- (axis cs:120,Barometro);
-          \draw[gray!70,line width=1.2pt] (axis cs:27,GPS) -- (axis cs:480,GPS);
-          \draw[gray!70,line width=1.2pt] (axis cs:1124,IMU) -- (axis cs:3336,IMU);
-
-          % marker "Prima" e "Ora"
-          \addplot[only marks,mark=*,mark size=2.6pt,color=padovagray]
-            coordinates {(80,Barometro) (27,GPS) (1124,IMU)};
-          \addplot[only marks,mark=*,mark size=2.6pt,color=padovared]
-            coordinates {(120,Barometro) (480,GPS) (3336,IMU)};
-          \legend{Prima,Ora}
-
-          % etichette con i valori assoluti
-          \node[font=\tiny,anchor=south] at (axis cs:80,Barometro) {\scriptsize 80};
-          \node[font=\tiny,anchor=south] at (axis cs:120,Barometro) {\scriptsize 120};
-          \node[font=\tiny,anchor=south] at (axis cs:27,GPS) {\scriptsize 27};
-          \node[font=\tiny,anchor=south] at (axis cs:480,GPS) {\scriptsize 480};
-          \node[font=\tiny,anchor=south] at (axis cs:1124,IMU) {\scriptsize 1124};
-          \node[font=\tiny,anchor=south] at (axis cs:3336,IMU) {\scriptsize 3336};
-
-          % fattore moltiplicativo, centrato sul segmento
-          \node[font=\tiny\bfseries,color=padovared,anchor=north] at (axis cs:98,Barometro) {$\times1{,}5$};
-          \node[font=\tiny\bfseries,color=padovared,anchor=north] at (axis cs:114,GPS) {$\times17{,}8$};
-          \node[font=\tiny\bfseries,color=padovared,anchor=north] at (axis cs:1936,IMU) {$\times3{,}0$};
-        \end{axis}
-      \end{tikzpicture}
-    \end{column}
-    \begin{column}{0.39\textwidth}
-      \footnotesize
-      \begin{itemize}
-        \item Formato binario: fino a 17,8$\times$ più campioni
-        \item Allocazione posticipata: buffer solo durante la sessione
-        \item CPU a riposo: dal 25\% al 3\%
-        \item Più RAM in cambio di meno scritture su SD
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{Perché la RAM è aumentata (e il sistema è comunque migliorato)}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.58\textwidth}
       \resizebox{\linewidth}{!}{%
       \begin{tikzpicture}
         % --- sfondo card (allargata per la colonna badge a destra) ---
