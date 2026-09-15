@@ -115,7 +115,7 @@
       \begin{itemize}
         \item Visualizzazione dei dati in tempo reale
         \item Nessun \textbf{modello 3D} del veicolo
-        \item Configurazione dei \textbf{parametri} limitata
+        \item Nessun avviso sullo \textbf{stato della memoria}
       \end{itemize}
     \end{column}
     \begin{column}{0.5\textwidth}
@@ -652,29 +652,6 @@
 \end{frame}
 
 \setbeamertemplate{footline}{}
-\begin{frame}[noframenumbering]{Backup: dimensione dei record e dei buffer}
-  \footnotesize
-  \centering
-  \begin{tabular}{l ccc ccc}
-    \hline
-    & \multicolumn{3}{c}{\textbf{Prima}} & \multicolumn{3}{c}{\textbf{Ora}} \\
-    \cline{2-4}\cline{5-7}
-    \textbf{Sensore} & Record & Buffer & Rec/buf & Record & Buffer & Rec/buf \\
-    \hline
-    Barometro    & $\approx$32 B & 2{,}5 KB  & $\approx$80   & 20 B & 2{,}3 KB  & 120  \\
-    GPS          & $\approx$75 B & 2{,}0 KB  & $\approx$27   & 42 B & 19{,}7 KB & 480  \\
-    IMU          & $\approx$56 B & 61{,}5 KB & $\approx$1124 & 20 B & 65{,}2 KB & 3336 \\
-    Magnetometro & $\approx$40 B & 16{,}0 KB & $\approx$410  & \multicolumn{3}{c}{Disabilitato} \\
-    \hline
-  \end{tabular}
-
-  \vspace{0.4cm}
-  \tiny\itshape
-  Dimensione del record e record/buffer
-  "Prima" approssimati per la variabilità del formato testuale CSV.
-\end{frame}
-
-\setbeamertemplate{footline}{}
 
 \begin{frame}[noframenumbering]{Backup: formato dell'header del Superfile}
   \footnotesize
@@ -699,6 +676,29 @@
     \hline
   \end{tabular}
   \end{center}
+\end{frame}
+
+\setbeamertemplate{footline}{}
+\begin{frame}[noframenumbering]{Backup: dimensione dei record e dei buffer}
+  \footnotesize
+  \centering
+  \begin{tabular}{l ccc ccc}
+    \hline
+    & \multicolumn{3}{c}{\textbf{Prima}} & \multicolumn{3}{c}{\textbf{Ora}} \\
+    \cline{2-4}\cline{5-7}
+    \textbf{Sensore} & Record & Buffer & Rec/buf & Record & Buffer & Rec/buf \\
+    \hline
+    Barometro    & $\approx$32 B & 2{,}5 KB  & $\approx$80   & 20 B & 2{,}3 KB  & 120  \\
+    GPS          & $\approx$75 B & 2{,}0 KB  & $\approx$27   & 42 B & 19{,}7 KB & 480  \\
+    IMU          & $\approx$56 B & 61{,}5 KB & $\approx$1124 & 20 B & 65{,}2 KB & 3336 \\
+    Magnetometro & $\approx$40 B & 16{,}0 KB & $\approx$410  & \multicolumn{3}{c}{Disabilitato} \\
+    \hline
+  \end{tabular}
+
+  \vspace{0.4cm}
+  \tiny\itshape
+  Dimensione del record e record/buffer
+  "Prima" approssimati per la variabilità del formato testuale CSV.
 \end{frame}
 
 \end{document}
