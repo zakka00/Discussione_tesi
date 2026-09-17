@@ -202,7 +202,7 @@
         \draw[padovagray,thin] (-45:\Ro) -- (-45:\Rl);
         \node[anchor=west,align=left] at (-45:\Rl) {\textbf{Dati}};
         \draw[padovagray,thin] (-170:\Ro) -- (-170:\Rl);
-        \node[anchor=east,align=left] at (-170:\Rl) {\textbf{Finestra di timestamp}\\ \textbf{pre-azzerati}};
+        \node[anchor=east,align=left] at (-170:\Rl) {\textbf{Finestra di dati}\\ \textbf{pre-azzerati}};
         \draw[padovagray,thin] (125:\Ro) -- (125:\Rl);
         \node[anchor=east,align=left] at (125:\Rl) {\textbf{Libero}};
       \end{tikzpicture}
@@ -289,7 +289,7 @@
       \begin{itemize}
         \item Stato del dispositivo \textbf{centralizzato}
         \item Stati firmware: \textbf{STAND\_BY}, \textbf{LOGGING},
-              \textbf{CALIBRATING}, \textbf{PAIRING}\dots
+              \textbf{ERROR}, \textbf{PAIRING}\dots
         \item \textbf{Colore e pattern di illuminazione}
               specifici per ogni stato
       \end{itemize}
@@ -424,7 +424,7 @@
       box/.style={draw=padovapetrol,fill=padovapetrollight,rounded corners=2pt,minimum width=2.4cm,minimum height=1.1cm,align=center,font=\small}]
     \node[box] (ecu) at (0,0) {Bus CAN\\della moto};
     \node[box] (sniffer) at (3.2,0) {EggLog\\CAN Sniffer};
-    \node[box] (app) at (6.4,0) {EggLog\\Motion Core};
+    \node[box] (app) at (6.4,0) {EggLog};
     \node[box,draw=padovagray,fill=padovagraylight] (sd) at (9.6,0) {microSD};
 
     % Bus CAN -> Sniffer: collegamento cablato
