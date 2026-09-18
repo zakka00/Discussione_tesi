@@ -40,7 +40,7 @@
 
 \section{Introduzione}
 
-\begin{frame}{EggLog Motion Core: l'idea del progetto}
+\begin{frame}{Azienda e idea del progetto}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.46\textwidth}
       \vspace{2pt}
@@ -49,17 +49,15 @@
       \end{center}
       \vspace{6pt}
       \begin{itemize}
-        \item \textbf{Software house} padovana
-        \item Nata grazie all'esperienza \textbf{USA}
-        \item Team \textbf{giovane}
+        \item \textbf{Software house} padovana\\IIoT, FinTech e InsurTech
       \end{itemize}
     \end{column}
     \begin{column}{0.5\textwidth}
-      \begin{block}{Obiettivi}
+      \begin{block}{Obiettivi EggLog Motion Core}
         \begin{itemize}
           \item Ottimizzazione del firmware (RAM \& CPU)
           \item Evoluzione con nuove funzionalità
-          \item Analisi di fattibilità del \textbf{EggLog CAN Sniffer}
+          \item Progettazione e implementazione di \textbf{EggLog CAN Sniffer}
         \end{itemize}
       \end{block}
     \end{column}
@@ -71,7 +69,7 @@
     \begin{column}{0.42\textwidth}
       {\color{padovared}\textbf{Sistema esistente}}
       \begin{itemize}
-        \item Architettura \textbf{producer-consumer} con \textbf{ping-pong buffer}
+        \item Architettura \textbf{producer-consumer} con \textbf{ping-pong buffering}
         \item Salvataggio di un file \textbf{CSV} per buffer riempito
       \end{itemize}
       \vspace{6pt}
@@ -137,7 +135,7 @@
       Tanti file CSV rallentano la \textbf{ricerca dei cluster liberi}
     \end{cardred}
     \begin{cardred}{Formato inefficiente}
-      \textbf{CSV}: elevato spazio occupato e \textbf{recovery} complesso
+      \textbf{CSV}: elevato spazio occupato 
     \end{cardred}
     \begin{cardred}{Stato non visibile}
       Nessuno stato centrale \textbf{interno} né \textbf{LED} esterno
@@ -166,9 +164,8 @@
     \begin{column}{0.42\textwidth}
       \begin{itemize}
         \item Sostituisce \textbf{tanti file CSV} con \textbf{un unico file}
-        \item \textbf{Buffer circolare} preallocato: zero frammentazione
         \item Formato \textbf{binario compatto}: più campioni per byte
-        \item \textbf{Finestra pre-azzerata}: recovery automatico dopo crash
+        \item \textbf{Buffer circolare} preallocato: zero frammentazione
       \end{itemize}
     \end{column}
     \begin{column}{0.55\textwidth}
@@ -181,13 +178,19 @@
         \def\Rl{2.6}  % raggio delle etichette dei campi
 
         % --- settori dell'anello ---
-        \path[fill=padovareddark]  (90:\Ri)  -- (90:\Ro)  arc (90:50:\Ro)    -- (50:\Ri)   arc (50:90:\Ri)    -- cycle; % Header
-        \path[fill=padovared]      (50:\Ri)  -- (50:\Ro)  arc (50:-140:\Ro)  -- (-140:\Ri) arc (-140:50:\Ri)  -- cycle; % Dati validi
-        \path[fill=padovagold]     (-140:\Ri)-- (-140:\Ro)arc (-140:-200:\Ro)-- (-200:\Ri) arc (-200:-140:\Ri)-- cycle; % Finestra pre-azzerata
-        \path[fill=padovagraylight](-200:\Ri)-- (-200:\Ro)arc (-200:-270:\Ro)-- (-270:\Ri) arc (-270:-200:\Ri)-- cycle; % Libero
+        \path[fill=padovareddark]  (90:\Ri)  -- (90:\Ro)  arc (90:50:\Ro)
+          -- (50:\Ri) arc (50:90:\Ri) -- cycle; % Header
+
+        \path[fill=padovared]      (50:\Ri)  -- (50:\Ro)  arc (50:-140:\Ro)
+          -- (-140:\Ri) arc (-140:50:\Ri) -- cycle; % Dati validi
+
+        \path[fill=padovagraylight](-140:\Ri) -- (-140:\Ro) arc (-140:-270:\Ro)
+          -- (-270:\Ri) arc (-270:-140:\Ri) -- cycle; % Libero
 
         % --- separatori e contorni ---
-        \foreach \a in {90,50,-140,-200} \draw[padovabg,line width=1pt] (\a:\Ri) -- (\a:\Ro);
+        \foreach \a in {90,50,-140}
+          \draw[padovabg,line width=1pt] (\a:\Ri) -- (\a:\Ro);
+
         \draw[padovaink,line width=0.6pt] (0,0) circle (\Ro);
         \draw[padovaink,line width=0.6pt] (0,0) circle (\Ri);
 
@@ -199,12 +202,12 @@
         % --- etichette con dimensione ---
         \draw[padovagray,thin] (70:\Ro) -- (70:\Rl);
         \node[anchor=west,align=left] at (70:\Rl) {\textbf{Header}};
+
         \draw[padovagray,thin] (-45:\Ro) -- (-45:\Rl);
         \node[anchor=west,align=left] at (-45:\Rl) {\textbf{Dati}};
-        \draw[padovagray,thin] (-170:\Ro) -- (-170:\Rl);
-        \node[anchor=east,align=left] at (-170:\Rl) {\textbf{Finestra di dati}\\ \textbf{pre-azzerati}};
-        \draw[padovagray,thin] (125:\Ro) -- (125:\Rl);
-        \node[anchor=east,align=left] at (125:\Rl) {\textbf{Libero}};
+
+        \draw[padovagray,thin] (160:\Ro) -- (160:\Rl);
+        \node[anchor=east,align=left] at (155:\Rl) {\textbf{Libero}};
       \end{tikzpicture}
     \end{column}
   \end{columns}
@@ -300,12 +303,10 @@
 \end{frame}
 
 \begin{frame}{Calibrazione dei sensori}
-  \framesubtitle{Risolve: dati IMU senza significato}
+  \framesubtitle{Risolve: dati grezzi}
   \begin{itemize}
     \item \textbf{Barometro}: calibrazione \textbf{altitudine} ad inizio sessione
-    \item Precisione \textbf{2 m} vs \textbf{25 m} GPS
     \item \textbf{IMU}: calibrazione guidata in \textbf{3 passaggi}
-    \item Macchina a stati con \textbf{retry isolato}
   \end{itemize}
 
   \vspace{4pt}
@@ -450,7 +451,6 @@
   \begin{itemize}
     \item \textcolor{padovared}{\textbf{Transienti elettrici}} $\rightarrow$ \textcolor{padovapetrol}{\textbf{TVS} in serie}
     \item \textcolor{padovared}{\textbf{Interferenza bus}} $\rightarrow$ \textcolor{padovapetrol}{controller \textbf{listen-only}}
-    \item \textcolor{padovared}{\textbf{Massa flottante}} $\rightarrow$ \textcolor{padovapetrol}{collegamento \textbf{a Y}}
   \end{itemize}
 \end{frame}
 
@@ -629,7 +629,6 @@
       \footnotesize
       \begin{itemize}
         \item Formato binario: fino a 17,8$\times$ più campioni
-        \item Allocazione posticipata: buffer solo durante la sessione
         \item CPU a riposo: dal 25\% al 3\%
         \item Più RAM in cambio di meno scritture su SD
       \end{itemize}
@@ -663,10 +662,10 @@
     \hline
     \textbf{Campo} & \textbf{Funzione} \\
     \hline
-    \texttt{magic} / \texttt{version} &
-      Permette di controllare che il file non sia corrotto / il versionamento per future evuluzioni\\
+    \texttt{version} &
+      la versione di firmware utilizzata, predisposto per future evoluzioni\\
     \texttt{dataStartOffset} &
-      Indicare da quale record iniziano i dati ancora valid\\
+      Indicare da quale record iniziano i dati ancora validi\\
     \texttt{dataEndOffset} &
       Indicare il prossimo record libero\\
     \texttt{recordCount} &

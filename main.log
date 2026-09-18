@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.21.0 (TeX Live 2025/Homebrew)  (format=lualatex 2025.3.7)  17 SEP 2026 03:26
+This is LuaHBTeX, Version 1.21.0 (TeX Live 2025/Homebrew)  (format=lualatex 2025.3.7)  18 SEP 2026 11:33
  restricted system commands enabled.
  file:line:error style messages enabled.
 **/Users/zakarialaoud/Desktop/tesi/Discussione_tesi/main
@@ -1020,82 +1020,82 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {/opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}<./assets/logo_unipd_bianco.png>]
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 67.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 65.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 <assets/eggon_logo_black.png, id=37, 904.37875pt x 364.36125pt>
 File: assets/eggon_logo_black.png Graphic file (type png)
 <use assets/eggon_logo_black.png>
-Package luatex.def Info: assets/eggon_logo_black.png  used on input line 67.
+Package luatex.def Info: assets/eggon_logo_black.png  used on input line 65.
 (luatex.def)             Requested size: 183.39352pt x 73.88281pt.
 
 
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 67.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 65.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 [2
 
 <./assets/eggon_logo_black.png><./assets/logo_unipd_rosso.png>]
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 90.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 88.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 <assets/producer-consumer.png, id=46, 479.7925pt x 497.86pt>
 File: assets/producer-consumer.png Graphic file (type png)
 <use assets/producer-consumer.png>
-Package luatex.def Info: assets/producer-consumer.png  used on input line 90.
+Package luatex.def Info: assets/producer-consumer.png  used on input line 88.
 (luatex.def)             Requested size: 137.101pt x 142.26378pt.
 
 
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 90.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 88.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 [3
 
 <./assets/producer-consumer.png>]
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 109.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 107.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 <assets/esp32s3.png, id=52, 664.4825pt x 565.11125pt>
 File: assets/esp32s3.png Graphic file (type png)
 <use assets/esp32s3.png>
-Package luatex.def Info: assets/esp32s3.png  used on input line 109.
+Package luatex.def Info: assets/esp32s3.png  used on input line 107.
 (luatex.def)             Requested size: 154.70425pt x 131.56808pt.
 
 
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 109.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 107.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 [4
 
 <./assets/esp32s3.png>]
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 129.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 127.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 
 
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 129.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 127.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 [5
 
 ]
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 159.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 157.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 
-Underfull \hbox (badness 1997) in paragraph at lines 159--159
+Underfull \hbox (badness 1997) in paragraph at lines 157--157
 []\TU/Carlito(0)/b/n/10.95 CSV\TU/Carlito(0)/m/n/10.95 : el-e-vato spazio oc-cu-
  []
 
 
-Underfull \hbox (badness 1377) in paragraph at lines 159--159
+Underfull \hbox (badness 1377) in paragraph at lines 157--157
 []\TU/Carlito(0)/m/n/10.95 Nes-suna or-ga-niz-zazione in
  []
 
@@ -1103,63 +1103,59 @@ Underfull \hbox (badness 1377) in paragraph at lines 159--159
 
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 159.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 157.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 [6
 
 ]
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 211.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 214.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 
 
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 211.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 214.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 [7
 
 ]
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 300.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 303.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 
 
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 300.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 303.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 [8
 
 ]
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 383.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 384.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
-
-Overfull \vbox (4.2835pt too high) detected at line 383
- []
-
 
 
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 383.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 384.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 [9
 
 ]
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 417.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 418.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 
 
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 417.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 418.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 [10
 
@@ -1243,24 +1239,24 @@ Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 571.
 ]
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 638.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 637.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 
 
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 638.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 637.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 [16
 
 ]
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 652.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 651.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 File: assets/logo_unipd_rosso.png Graphic file (type png)
 <use assets/logo_unipd_rosso.png>
-Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 652.
+Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 651.
 (luatex.def)             Requested size: 241.2788pt x 232.4347pt.
 
 
@@ -1268,7 +1264,7 @@ Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 652.
 
 ]
 LaTeX Font Info:    Font shape `TU/DejaVuSansMono(0)/m/n' will be
-(Font)              scaled to size 7.92004pt on input line 679.
+(Font)              scaled to size 7.92004pt on input line 678.
 
 
 [18
@@ -1301,16 +1297,16 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 )
 
 Here is how much of LuaTeX's memory you used:
- 43357 strings out of 475506
+ 43348 strings out of 475506
  100000,1977958 words of node,token memory allocated
  7473 words of node memory still in use:
    95 hlist, 10 vlist, 18 rule, 16 disc, 4 local_par, 18 math, 322 glue, 49 kern, 11 penalty, 329 glyph, 178 attribute, 61 glue_spec, 178 attribute_list, 4 write, 2 pdf_literal, 26 pdf_colorstack nodes
-   avail lists: 2:3393,3:1941,4:438,5:395,6:61,7:2336,8:6,9:993,10:15,11:155
- 65065 multiletter control sequences out of 65536+600000
+   avail lists: 2:3393,3:1941,4:420,5:357,6:61,7:2336,8:6,9:993,10:15,11:155
+ 65056 multiletter control sequences out of 65536+600000
  110 fonts using 23667375 bytes
  128i,23n,116p,770b,2662s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/truetype/public/dejavu/DejaVuSansMono.ttf></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/truetype/google/carlito/Carlito-Italic.ttf></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/truetype/google/carlito/Carlito-Bold.ttf></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/truetype/google/carlito/Carlito-Regular.ttf></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on main.pdf (19 pages, 1620744 bytes).
+Output written on main.pdf (19 pages, 1619424 bytes).
 
 PDF statistics: 197 PDF objects out of 1000 (max. 8388607)
  139 compressed objects within 2 object streams
