@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.21.0 (TeX Live 2025/Homebrew)  (format=lualatex 2025.3.7)  18 SEP 2026 11:33
+This is LuaHBTeX, Version 1.21.0 (TeX Live 2025/Homebrew)  (format=lualatex 2025.3.7)  18 SEP 2026 19:02
  restricted system commands enabled.
  file:line:error style messages enabled.
 **/Users/zakarialaoud/Desktop/tesi/Discussione_tesi/main
@@ -1090,8 +1090,8 @@ File: assets/logo_unipd_rosso.png Graphic file (type png)
 Package luatex.def Info: assets/logo_unipd_rosso.png  used on input line 157.
 (luatex.def)             Requested size: 22.15149pt x 21.33955pt.
 
-Underfull \hbox (badness 1997) in paragraph at lines 157--157
-[]\TU/Carlito(0)/b/n/10.95 CSV\TU/Carlito(0)/m/n/10.95 : el-e-vato spazio oc-cu-
+Underfull \hbox (badness 10000) in paragraph at lines 157--157
+[]\TU/Carlito(0)/m/n/10.95 Record \TU/Carlito(0)/b/n/10.95 CSV \TU/Carlito(0)/m/n/10.95 a lunghezza
  []
 
 
@@ -1301,12 +1301,12 @@ Here is how much of LuaTeX's memory you used:
  100000,1977958 words of node,token memory allocated
  7473 words of node memory still in use:
    95 hlist, 10 vlist, 18 rule, 16 disc, 4 local_par, 18 math, 322 glue, 49 kern, 11 penalty, 329 glyph, 178 attribute, 61 glue_spec, 178 attribute_list, 4 write, 2 pdf_literal, 26 pdf_colorstack nodes
-   avail lists: 2:3393,3:1941,4:420,5:357,6:61,7:2336,8:6,9:993,10:15,11:155
+   avail lists: 2:3393,3:1941,4:420,5:369,6:61,7:2336,8:6,9:993,10:15,11:155
  65056 multiletter control sequences out of 65536+600000
  110 fonts using 23667375 bytes
  128i,23n,116p,770b,2662s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/truetype/public/dejavu/DejaVuSansMono.ttf></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/truetype/google/carlito/Carlito-Italic.ttf></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/truetype/google/carlito/Carlito-Bold.ttf></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/truetype/google/carlito/Carlito-Regular.ttf></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></opt/homebrew/Cellar/texlive/20250308_2/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on main.pdf (19 pages, 1619424 bytes).
+Output written on main.pdf (19 pages, 1619409 bytes).
 
 PDF statistics: 197 PDF objects out of 1000 (max. 8388607)
  139 compressed objects within 2 object streams
